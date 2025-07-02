@@ -1,0 +1,30 @@
+# Étape 1 : Construire l'application avec Node.js
+FROM node:16 AS build
+
+# Dossier de travail
+WORKDIR /app
+
+# Copier package.json et package-lock.json
+COPY package*.json ./
+
+# Installer les dépendances
+RUN npm install --force
+
+
+# Copier tout le projet
+COPY . .
+
+# Construire l'application avec Vite
+RUN npm run build
+
+# Étape 2 : Utiliser Nginx pour servir l'application
+FROM nginx:alpine
+
+# Copier les fichiers de build Vite dans le dossier Nginx
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Exposer le port 80
+EXPOSE 80
+
+# Lancer Nginx
+CMD ["nginx", "-g", "daemon off;"]
