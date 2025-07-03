@@ -21,7 +21,7 @@ import Pay from "./pages/pay/Pay";
 import Success from "./pages/success/Success";
 function App() {
    useEffect(() => {
-   fetch('http://localhost:8800/api/data')
+   fetch('http://backend:8800/api/data')
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error('Error:', error));
