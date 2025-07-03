@@ -20,6 +20,11 @@ import {
 import Pay from "./pages/pay/Pay";
 import Success from "./pages/success/Success";
 function App() {
+   useEffect(() => {
+    fetch('http://backend:3000')  // Utilisez le nom du service Docker pour le backend
+      .then(response => response.text())
+      .then(data => console.log(data));
+  }, []);
   const queryClient = new QueryClient();
 
   const Layout = () => {
