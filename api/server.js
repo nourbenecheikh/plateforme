@@ -12,6 +12,10 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = express();
+// Route de base
+app.get('/', (req, res) => {
+  res.send('Backend is running!');
+});
 dotenv.config();
 mongoose.set("strictQuery", true);
 
