@@ -12,10 +12,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 dotenv.config();
 const app = express();
-// Route de base
-app.get('/', (req, res) => {
-  res.send('Backend is running!');
-});
+
 
 // Configurer mongoose
 mongoose.set("strictQuery", true);
@@ -45,6 +42,9 @@ app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
 
+app.get('/', (req, res) => {
+  res.send('Backend is running!');
+})
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong!";
