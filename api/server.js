@@ -49,20 +49,20 @@ app.use((err, req, res, next) => {
 // Connexion MongoDB + Démarrage du serveur
 const connect = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    
-    console.log("MONGO_URI:", process.env.MONGO_URI);
-
+    const mongoUri = process.env.MONGO_URI;
+    if (!mongoUri) {
+      throw new Error("MONGO_URI is not defined");
+    }
+    await mongoose.connect(mongoUri);
     console.log("✅ Connected to MongoDB!");
 
-    // Démarrer le serveur après la connexion MongoDB réussie
     app.listen(8800, '0.0.0.0', () => {
       console.log("🚀 Backend server is running on port 8800!");
     });
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error);
-    process.exit(1); // Quitte si la connexion échoue
+    process.exit(1);  // Quitte si la connexion échoue
   }
 };
 
-startServer();
+connect ();
