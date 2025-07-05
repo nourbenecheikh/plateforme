@@ -10,23 +10,28 @@ import reviewRoute from "./routes/review.route.js";
 import authRoute from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
+dotenv.config();
 const app = express();
 // Route de base
 app.get('/', (req, res) => {
   res.send('Backend is running!');
 });
-dotenv.config();
+
+// Configurer mongoose
 mongoose.set("strictQuery", true);
 
+// Connexion à MongoDB
 const connect = async () => {
   try {
-    await mongoose.connect(process.env.MONGO);
+    await mongoose.connect(process.env.MONGO_URI);  // Utiliser MONGO_URI depuis l'environnement
     console.log("Connected to mongoDB!");
   } catch (error) {
     console.log(error);
   }
 };
+
+// Lancer l'application
+connect();
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
