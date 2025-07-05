@@ -51,6 +51,7 @@ const startServer = async () => {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ Connected to MongoDB!");
 
+    // Démarrer le serveur après la connexion MongoDB réussie
     app.listen(8800, '0.0.0.0', () => {
       console.log("🚀 Backend server is running on port 8800!");
     });
