@@ -12,7 +12,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 // Chargement des variables d'environnement
-require('dotenv').config();
+dotenv.config();
 
 
 const app = express();
