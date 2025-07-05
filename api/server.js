@@ -11,14 +11,18 @@ import authRoute from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-// Chargement des variables d'environnement
-dotenv.config();
 
+// Chargement des variables d'environnement AVEC le chemin absolu
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 const app = express();
 
+// Debug: Affiche les variables d'environnement chargées
+console.log("MONGO_URI from env:", process.env.MONGO_URI);
+
 // Configuration mongoose
 mongoose.set("strictQuery", true);
+
 
 // Middlewares
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
@@ -34,35 +38,32 @@ app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
 
-// Route de test
-app.get('/', (req, res) => {
-  res.send('Backend server is running!');
-});
-
-// Gestion des erreurs
-app.use((err, req, res, next) => {
-  const errorStatus = err.status || 500;
-  const errorMessage = err.message || "Something went wrong!";
-  return res.status(errorStatus).send(errorMessage);
-});
-
-// Connexion MongoDB + Démarrage du serveur
 const connect = async () => {
   try {
     const mongoUri = process.env.MONGO_URI;
+    
     if (!mongoUri) {
-      throw new Error("MONGO_URI is not defined");
+      throw new Error("❌ MONGO_URI is not defined in environment variables");
     }
-    await mongoose.connect(mongoUri);
+
+    console.log("⌛ Attempting to connect to MongoDB at:", mongoUri);
+    
+    await mongoose.connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // 5 secondes timeout
+    });
+
     console.log("✅ Connected to MongoDB!");
 
     app.listen(8800, '0.0.0.0', () => {
       console.log("🚀 Backend server is running on port 8800!");
     });
   } catch (error) {
-    console.error("❌ MongoDB connection failed:", error);
-    process.exit(1);  // Quitte si la connexion échoue
+    console.error("❌ MongoDB connection failed:", error.message);
+    // Tentative de reconnexion après 5 secondes
+    setTimeout(connect, 5000);
   }
 };
 
-connect ();
+connect();
