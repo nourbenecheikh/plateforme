@@ -13,12 +13,13 @@ import cors from "cors";
 
 
 // Chargement des variables d'environnement AVEC le chemin absolu
-dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 
 const app = express();
 
 // Debug: Affiche les variables d'environnement chargées
 console.log("MONGO_URI from env:", process.env.MONGO_URI);
+console.log("[ENV] Current working directory:", process.cwd());
 
 // Configuration mongoose
 mongoose.set("strictQuery", true);
