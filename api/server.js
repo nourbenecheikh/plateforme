@@ -12,7 +12,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 // Chargement des variables d'environnement
-dotenv.config();
+require('dotenv').config();
+
 
 const app = express();
 
@@ -49,6 +50,9 @@ app.use((err, req, res, next) => {
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
+    
+    console.log("MONGO_URI:", process.env.MONGO_URI);
+
     console.log("✅ Connected to MongoDB!");
 
     // Démarrer le serveur après la connexion MongoDB réussie
