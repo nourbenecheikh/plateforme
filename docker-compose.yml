@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   frontend:
@@ -11,9 +11,14 @@ services:
     ports:
       - "8800:8800"
     environment:
-      - MONGO=mongodb://mongo:27017/mydb
+      - MONGO_URI=mongodb://mongo:27017/mydb 
+    env_file:
+      - .env
     depends_on:
       - mongo
+    volumes:
+      - ../.env:/app/.env  
+
 
   mongo:
     image: mongo
@@ -25,3 +30,5 @@ services:
 volumes:
   mongo-data:
 
+
+ 

@@ -1,0 +1,70 @@
+name: CI/CD Pipeline for Plateforme
+
+on:
+  push:
+    branches:
+      - fullstack-fiverr
+  
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install frontend dependencies
+        working-directory: ./client
+        run: npm install
+
+      - name: Build frontend
+        working-directory: ./client
+        run: npm run build
+
+      - name: Install backend dependencies
+        working-directory: ./api
+        run: npm install
+
+      - name: Run backend tests
+        working-directory: ./api
+        run: npm test
+
+  docker-compose-up:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Start Docker Compose
+        run: docker-compose up -d
+
+      - name: Check running containers
+        run: docker ps
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }} 
+          password:  ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push Docker Image (Frontend)
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/client:latest ./client
+          docker push ${{ secrets.DOCKER_USERNAME }}/client:latest
+
+      - name: Build and Push Docker Image (Backend)
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/api:latest ./backend
+          docker push ${{ secrets.DOCKER_USERNAME }}/api:latest
+0
