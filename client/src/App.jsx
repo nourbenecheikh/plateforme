@@ -20,6 +20,13 @@ import {
 import Pay from "./pages/pay/Pay";
 import Success from "./pages/success/Success";
 function App() {
+   useEffect(() => {
+   fetch('http://backend:8800/api/data')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+
+  }, []);
   const queryClient = new QueryClient();
 
   const Layout = () => {
