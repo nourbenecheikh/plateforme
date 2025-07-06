@@ -67,4 +67,3 @@ steps:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/api:latest ./api
           docker push ${{ secrets.DOCKER_USERNAME }}/api:latest
-0
