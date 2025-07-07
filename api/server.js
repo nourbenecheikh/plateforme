@@ -1,4 +1,4 @@
-import path from "path";
+
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
@@ -45,7 +45,7 @@ const connect = async () => {
     await mongoose.connect(mongoUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 5000, // Timeout de 5 secondes
+      serverSelectionTimeoutMS: 5000, // 5 secondes timeout
     });
 
     console.log("✅ Connected to MongoDB!");
