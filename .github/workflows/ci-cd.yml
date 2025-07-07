@@ -13,54 +13,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install frontend dependencies
-        working-directory: ./client
-        run: npm install --legacy-peer-deps
-
-      - name: Build frontend
-        working-directory: ./client
-        run: npm run build
-
-      - name: Install backend dependencies
-        working-directory: ./api
-        run: npm install
-
-      - name: Run backend tests
-        working-directory: ./api
-        run: npm test
-
-  docker-compose-up:
-    runs-on: ubuntu-latest
-    needs: build-and-test
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Check running containers
-        run: docker ps
-
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Push Docker Image (Frontend)
+      - name: pull Docker Image( Frontend)
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/client:latest ./client
-          docker push ${{ secrets.DOCKER_USERNAME }}/client:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/client:latest
 
-      - name: Build and Push Docker Image (Backend)
+      - name: pull Docker Image (Backend)
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/api:latest ./api
-          docker push ${{ secrets.DOCKER_USERNAME }}/api:latest
+         
+          docker pull ${{ secrets.DOCKER_USERNAME }}/api:latest
 
+      - name: run frontend container
+        run: |
+
+          docker run -d -p 3000:80 ${{ secrets.DOCKER_USERNAME }}/client:latest
+      - name: Run Backend Container
+        run: |
+          docker run -d -p 8800:8800 ${{ secrets.DOCKER_USERNAME }}/api:latest
