@@ -1,0 +1,36 @@
+name: SAST Scan with Semgrep 
+
+on:
+  push:
+    branches:
+      - fullstack-fiverr
+  pull_request:
+    branches:
+      - fullstack-fiverr
+
+jobs:
+  semgrep-sast:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Set up Python for Semgrep
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Run Semgrep scan
+        run: semgrep --config "p/default" .
