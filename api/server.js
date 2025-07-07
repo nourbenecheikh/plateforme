@@ -1,5 +1,4 @@
 import path from "path";
-import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import userRoute from "./routes/user.route.js";
@@ -13,7 +12,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 
-dotenv.config().
+
 const mongoUri = process.env.MONGO_URI;  //
 const app = express();
 
