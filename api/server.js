@@ -13,8 +13,8 @@ import cors from "cors";
 
 
 // Chargement des variables d'environnement AVEC le chemin absolu
-process.env.MONGO_URI = "mongodb://localhost:27017/mydb"
-const mongoUri = process.env.MONGO_URI;
+
+const mongoUri = process.env.MONGO_URI;  //
 const app = express();
 
 mongoose.set("strictQuery", true);
@@ -36,18 +36,16 @@ app.use("/api/reviews", reviewRoute);
 
 const connect = async () => {
   try {
-    const mongoUri = process.env.MONGO_URI;
-    
     if (!mongoUri) {
       throw new Error("MONGO_URI is not defined in environment variables");
     }
 
     console.log("⌛ Attempting to connect to MongoDB at:", mongoUri);
-    
+
     await mongoose.connect(mongoUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 5000, // 5 secondes timeout
+      serverSelectionTimeoutMS: 5000, // Timeout de 5 secondes
     });
 
     console.log("✅ Connected to MongoDB!");
