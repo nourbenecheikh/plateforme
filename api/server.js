@@ -1,6 +1,5 @@
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js";
 import gigRoute from "./routes/gig.route.js";
 import orderRoute from "./routes/order.route.js";
@@ -13,15 +12,10 @@ import cors from "cors";
 
 
 // Chargement des variables d'environnement AVEC le chemin absolu
-dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 
+const mongoUri = process.env.MONGO_URI;
 const app = express();
 
-// Debug: Affiche les variables d'environnement chargées
-console.log("MONGO_URI from env:", process.env.MONGO_URI);
-console.log("[ENV] Current working directory:", process.cwd());
-
-// Configuration mongoose
 mongoose.set("strictQuery", true);
 
 
@@ -44,7 +38,7 @@ const connect = async () => {
     const mongoUri = process.env.MONGO_URI;
     
     if (!mongoUri) {
-      throw new Error("❌ MONGO_URI is not defined in environment variables");
+      throw new Error("MONGO_URI is not defined in environment variables");
     }
 
     console.log("⌛ Attempting to connect to MongoDB at:", mongoUri);
