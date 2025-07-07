@@ -1,3 +1,4 @@
+import path from 'path'
 import express from "express";
 import mongoose from "mongoose";
 import userRoute from "./routes/user.route.js";
