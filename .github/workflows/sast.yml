@@ -50,7 +50,8 @@ jobs:
           node-version: '18'
 
       - name: Install project dependencies
-        run: npm install
+        run: run: npm install --legacy-peer-deps
+
         working-directory: ./client
 
       - name: Set up Python for Semgrep
