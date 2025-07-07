@@ -1,4 +1,4 @@
-name: SAST Scan with Semgrep 
+name: SAST Scan with Semgrep
 
 on:
   push:
@@ -33,16 +33,21 @@ jobs:
       - name: Install Semgrep
         run: pip install semgrep
 
-      - name: Run Semgrep scan
+      - name: Run Semgrep scan for Backend
         run: semgrep --config "p/default" .
         working-directory: ./api
 
   frontend-sast:
-      runs-on: ubuntu-latest
- 
-     steps:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
 
       - name: Install project dependencies
         run: npm install
@@ -56,7 +61,7 @@ jobs:
       - name: Install Semgrep
         run: pip install semgrep
 
-      - name: Run Semgrep scan
+      - name: Run Semgrep scan for Frontend
         run: semgrep --config "p/default" .
         working-directory: ./client
 
