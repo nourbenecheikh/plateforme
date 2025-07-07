@@ -12,8 +12,7 @@ services:
       - "8800:8800"
     environment:
       - MONGO_URI=mongodb://mongo:27017/mydb 
-    volumes:
-      - ./api/.env:/app/.env
+   
       
     depends_on:
       - mongo
