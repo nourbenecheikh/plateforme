@@ -1,4 +1,4 @@
-import path from 'path'
+
 import express from "express";
 import mongoose from "mongoose";
 import userRoute from "./routes/user.route.js";
@@ -13,7 +13,7 @@ import cors from "cors";
 
 
 // Chargement des variables d'environnement AVEC le chemin absolu
-
+process.env.MONGO_URI = "mongodb://localhost:27017/mydb"
 const mongoUri = process.env.MONGO_URI;
 const app = express();
 
