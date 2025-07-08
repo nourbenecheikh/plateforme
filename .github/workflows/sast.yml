@@ -18,11 +18,11 @@ jobs:
 
       - name: Run Semgrep for Backend
         run: |
-          docker pull nourben585/backend:latest
-          docker run --rm -v "$PWD/api:/src" nourben585/backend:latest semgrep --config p/default /src
+          docker pull nourben585/backend-app:latest
+          docker run --rm -v "$PWD/api:/src" nourben585/backend-app:latest semgrep --config p/default /src
 
       - name: Run Semgrep for Frontend
         run: |
-          docker pull nourben585/frontend:latest
-          docker run --rm -v "$PWD/client:/src" nourben585/frontend:latest semgrep --config p/default /src
+          docker pull nourben585/frontend-app:latest
+          docker run --rm -v "$PWD/client:/src" nourben585/frontend-app:latest semgrep --config p/default /src
 
