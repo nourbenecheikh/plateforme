@@ -22,7 +22,7 @@ jobs:
       - name: Upload SARIF results for Backend
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: semgrep-backend.sarif
+          sarif_file: plateforme/semgrep-results/semgrep-backend.sarif
 
       - name: Run Semgrep for Frontend
         run: |
@@ -31,4 +31,4 @@ jobs:
       - name: Upload SARIF results for Frontend
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: semgrep-frontend.sarif
+          sarif_file: plateforme/semgrep-resultrs/semgrep-frontend.sarif
