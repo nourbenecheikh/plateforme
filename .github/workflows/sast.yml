@@ -16,16 +16,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run Semgrep for Backend
+      # Run Semgrep for Backend and generate SARIF report
+      - name: Run Semgrep on Backend and Generate SARIF Report
         run: |
-          docker run --rm -v "$PWD/api:/src" returntocorp/semgrep semgrep --config p/default /src
-      
-      - name: Run Semgrep for Frontend
-        run: |
-          docker run --rm -v "$PWD/client:/src" returntocorp/semgrep semgrep --config p/default /src
+          docker run --rm -v "$PWD/api:/src" returntocorp/semgrep semgrep --config p/default --sarif -o "$PWD/semgrep-results/semgrep-backend.sarif" /src
 
+      # Run Semgrep for Frontend and generate SARIF report
+      - name: Run Semgrep on Frontend and Generate SARIF Report
+        run: |
+          docker run --rm -v "$PWD/client:/src" returntocorp/semgrep semgrep --config p/default --sarif -o "$PWD/semgrep-results/semgrep-frontend.sarif" /src
+
+      # Upload SARIF results as Artifacts
       - name: Upload SARIF results as Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: semgrep-scan-results
           path: semgrep-results/
+
+      # Remove semgrep-results directory after processing
+      - name: Remove semgrep-results directory
+        run: rm -rf semgrep-results
+
