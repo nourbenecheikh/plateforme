@@ -9,22 +9,20 @@ on:
       - fullstack-fiverr
 
 jobs:
-sast:
-    runs-on: ubuntu-latest  # Utilise un runner GitHub pour orchestrer l'exécution, mais tout se passe dans Docker.
+  sast:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-
-      # Backend : Exécute Semgrep dans un conteneur Docker backend
       - name: Run Semgrep for Backend
         run: |
-          docker pull nourben585/backend:latest  # Tire l'image Docker du backend depuis Docker Hub
-          docker run --rm -v "$PWD/api:/src" nourben585/backend:latest semgrep --config p/default /src  # Monte le dossier backend dans le conteneur et exécute Semgrep
+          docker pull nourben585/backend:latest
+          docker run --rm -v "$PWD/api:/src" nourben585/backend:latest semgrep --config p/default /src
 
-      # Frontend : Exécute Semgrep dans un conteneur Docker frontend
       - name: Run Semgrep for Frontend
         run: |
-          docker pull nourben585/frontend:latest  # Tire l'image Docker du frontend depuis Docker Hub
-          docker run --rm -v "$PWD/client:/src" nourben585/frontend:latest semgrep --config p/default /src  # Monte le dossier frontend dans le conteneur et exécute Semgrep
+          docker pull nourben585/frontend:latest
+          docker run --rm -v "$PWD/client:/src" nourben585/frontend:latest semgrep --config p/default /src
+
