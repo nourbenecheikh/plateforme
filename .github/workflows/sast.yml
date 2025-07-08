@@ -20,7 +20,7 @@ jobs:
         run: |
           docker run --rm -v "$PWD/api:/src" returntocorp/semgrep semgrep --config p/default /src
       - name: Upload SARIF results for Backend
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: api/semgrep-backend.sarif
 
@@ -29,6 +29,6 @@ jobs:
           docker run --rm -v "$PWD/client:/src" returntocorp/semgrep semgrep --config p/default /src
       
       - name: Upload SARIF results for Frontend
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: client/semgrep-frontend.sarif
