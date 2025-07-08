@@ -16,9 +16,6 @@ sast:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Configuration des conteneurs Docker
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v1
 
       # Backend : Exécute Semgrep dans un conteneur Docker backend
       - name: Run Semgrep for Backend
