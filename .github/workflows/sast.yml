@@ -9,60 +9,25 @@ on:
       - fullstack-fiverr
 
 jobs:
-  backend-sast:
-    runs-on: ubuntu-latest
+sast:
+    runs-on: ubuntu-latest  # Utilise un runner GitHub pour orchestrer l'exécution, mais tout se passe dans Docker.
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
+      # Configuration des conteneurs Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
 
-      - name: Install project dependencies
-        run: npm install
-        working-directory: ./api
+      # Backend : Exécute Semgrep dans un conteneur Docker backend
+      - name: Run Semgrep for Backend
+        run: |
+          docker pull nourben585/backend:latest  # Tire l'image Docker du backend depuis Docker Hub
+          docker run --rm -v "$PWD/api:/src" nourben585/backend:latest semgrep --config p/default /src  # Monte le dossier backend dans le conteneur et exécute Semgrep
 
-      - name: Set up Python for Semgrep
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install Semgrep
-        run: pip install semgrep
-
-      - name: Run Semgrep scan for Backend
-        run: semgrep --config "p/default" .
-        working-directory: ./api
-
-  frontend-sast:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-
-      - name: Install project dependencies
-        run: run: npm install --legacy-peer-deps
-
-        working-directory: ./client
-
-      - name: Set up Python for Semgrep
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install Semgrep
-        run: pip install semgrep
-
-      - name: Run Semgrep scan for Frontend
-        run: semgrep --config "p/default" .
-        working-directory: ./client
-
+      # Frontend : Exécute Semgrep dans un conteneur Docker frontend
+      - name: Run Semgrep for Frontend
+        run: |
+          docker pull nourben585/frontend:latest  # Tire l'image Docker du frontend depuis Docker Hub
+          docker run --rm -v "$PWD/client:/src" nourben585/frontend:latest semgrep --config p/default /src  # Monte le dossier frontend dans le conteneur et exécute Semgrep
