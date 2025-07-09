@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: plateforme-app
+  namespace: argocd   # Le namespace où tourne Argo CD
+spec:
+  project: default
+
+  source:
+    repoURL: 'https://github.com/nourbenecheikh/platefome'
+    targetRevision: fullstack-fiverr                   # Branche à surveiller (souvent main ou HEAD)
+    path: charts/plateforme-chart            # Chemin vers le chart Helm dans le repo
+    helm:
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: plateforme
+
+  syncPolicy:
+    automated:
+      prune: true       # Supprimer les anciennes ressources
+      selfHeal: true    # Corriger les déviations automatiquement
+   
