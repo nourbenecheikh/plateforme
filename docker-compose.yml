@@ -2,17 +2,18 @@
 
 services:
   frontend:
-    image: ${DOCKER_USERNAME}/client:latest
+    image: nourben585/frontend-app:latest
     ports:
       - "3000:80"  
 
   backend:
-    image: ${DOCKER_USERNAME}/api:latest 
+    image: nourben585/backend-app:latest 
     ports:
       - "8800:8800"
     environment:
       - MONGO_URI=mongodb://mongo:27017/mydb 
-   
+      
+     
       
     depends_on:
       - mongo
