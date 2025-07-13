@@ -1,0 +1,9 @@
+enabled: true
+replicaCount: 1
+image:
+  repository: mongo
+  tag: "6"
+  pullPolicy: IfNotPresent
+service:
+  port: 27017
+containerPort: 27017
