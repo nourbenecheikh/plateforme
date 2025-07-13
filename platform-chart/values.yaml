@@ -5,6 +5,7 @@
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 frontend:
+  enabled: true
   image:
     repository: nourben585/frontend-app
     tag: latest
@@ -14,7 +15,8 @@ frontend:
   containerPort: 80
 
 backend:
-  image:
+ enabled: true
+ image:
     repository: nourben585/backend-app
     tag: latest
     pullPolicy: IfNotPresent
