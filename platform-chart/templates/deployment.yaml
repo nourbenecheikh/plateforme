@@ -57,7 +57,7 @@ spec:
   selector:
     matchLabels:
       app: mongodb
-    template:
+  template:
     metadata:
       labels:
         app: mongodb
