@@ -15,8 +15,8 @@ frontend:
   containerPort: 80
 
 backend:
- enabled: true
- image:
+  enabled: true
+  image:
     repository: nourben585/backend-app
     tag: latest
     pullPolicy: IfNotPresent
