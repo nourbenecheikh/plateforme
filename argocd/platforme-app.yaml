@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platforme-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/nourbenecheikh/plateforme'  # 🔁 À modifier
+    targetRevision: fullstack-fiverr         # 🔁 Branche (main, master…)
+    path: platform-chart                                           # ✅ Chemin vers ton chart
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default                                             # 🔁 Namespace cible
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
