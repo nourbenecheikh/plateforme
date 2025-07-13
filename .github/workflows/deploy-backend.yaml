@@ -1,0 +1,50 @@
+name: Build & Deploy Backend via Helm
+
+on:
+  push:
+    branches:
+      - fullstack-fiverr
+    paths:
+      - api/**
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: nourben585/backend-app
+      CHART_PATH: platform-chart
+      FILE: backend-values.yaml
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get short SHA
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t $IMAGE_NAME:backend-${{ steps.vars.outputs.sha_short }} ./api
+          docker push $IMAGE_NAME:backend-${{ steps.vars.outputs.sha_short }}
+
+      - name: Install yq
+        run: |
+          wget https://github.com/mikefarah/yq/releases/download/v4.33.3/yq_linux_amd64 -O yq
+          chmod +x yq
+          sudo mv yq /usr/local/bin
+
+      - name: Update image tag in values.yaml
+        run: |
+          yq e '.backend.image.tag = "backend-${{ steps.vars.outputs.sha_short }}"' -i $CHART_PATH/$FILE
+
+      - name: Commit and push updated values.yaml
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add $CHART_PATH/$FILE
+          git commit -m "Update backend image tag to backend-${{ steps.vars.outputs.sha_short }}"
+          git push https://x-access-token:${{ secrets.CI_PUSH_TOKEN }}@github.com/${{ github.repository }} HEAD:fullstack-fiverr
