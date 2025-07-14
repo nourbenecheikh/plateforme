@@ -47,9 +47,10 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git remote remove origin
-          git remote add origin https://x-access-token:$@github.com/$CI_PUSH_TOKEN{{ github.repository }}
-
+         
+          REMOTE_URL=" https://x-access-token:$@github.com/$CI_PUSH_TOKEN{{ github.repository }}"
+          git remote remove origin || true
+          git remote add origin "$REMOTE_URL"      
           git remote -v
           git add $CHART_PATH/values/$FILE
           git commit -m "Update backend image tag to backend-${{ steps.vars.outputs.sha_short }}"
