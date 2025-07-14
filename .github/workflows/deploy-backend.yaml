@@ -40,12 +40,12 @@ jobs:
       - name: Update image tag in values.yaml
         run: |
           yq e '.backend.image.tag = "backend-${{ steps.vars.outputs.sha_short }}"' -i $CHART_PATH/values/$FILE
-
       - name: Commit and push updated values.yaml
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.CI_PUSH_TOKEN }}@github.com/${{ github.repository }}
           git add $CHART_PATH/values/$FILE
           git commit -m "Update backend image tag to backend-${{ steps.vars.outputs.sha_short }}"
-          git push https://x-access-token:${{ secrets.CI_PUSH_TOKEN }}@github.com/${{ github.repository }} HEAD:fullstack-fiverr
+          git push origin HEAD:fullstack-fiverr
 
