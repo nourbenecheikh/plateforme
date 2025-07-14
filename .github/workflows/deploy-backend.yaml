@@ -39,7 +39,7 @@ jobs:
 
       - name: Update image tag in values.yaml
         run: |
-          yq e '.backend.image.tag = "backend-${{ steps.vars.outputs.sha_short }}"' -i $CHART_PATH/$FILE
+          yq e '.backend.image.tag = "backend-${{ steps.vars.outputs.sha_short }}"' -i $CHART_PATH/values/$FILE
 
       - name: Commit and push updated values.yaml
         run: |
@@ -48,3 +48,4 @@ jobs:
           git add $CHART_PATH/$FILE
           git commit -m "Update backend image tag to backend-${{ steps.vars.outputs.sha_short }}"
           git push https://x-access-token:${{ secrets.CI_PUSH_TOKEN }}@github.com/${{ github.repository }} HEAD:fullstack-fiverr
+
