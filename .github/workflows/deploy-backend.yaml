@@ -42,17 +42,17 @@ jobs:
           yq e '.backend.image.tag = "backend-${{ steps.vars.outputs.sha_short }}"' -i $CHART_PATH/values/$FILE
       
       - name: Configure Git user and remote
-          env:
-            CI_PUSH_TOKEN: ${{ secrets.CI_PUSH_TOKEN }}
-          run: |
-            git config user.name "GitHub Actions"
-            git config user.email "actions@github.com"
+        env:
+          CI_PUSH_TOKEN: ${{ secrets.CI_PUSH_TOKEN }}
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
 
-            REMOTE_URL="https://x-access-token:${{ secrets.CI_PUSH_TOKEN }}@github.com/${{ github.repository }}"
-            git remote remove origin || true
-            git remote add origin "$REMOTE_URL"      
-            git remote -v
-            git add $CHART_PATH/values/$FILE
-            git commit -m "Update backend image tag to backend-${{ steps.vars.outputs.sha_short }}" || echo "Nothing to commit"
-            git push origin HEAD:fullstack-fiverr --force
+          REMOTE_URL="https://x-access-token:${{ secrets.CI_PUSH_TOKEN }}@github.com/${{ github.repository }}"
+          git remote remove origin || true
+          git remote add origin "$REMOTE_URL"      
+          git remote -v
+          git add $CHART_PATH/values/$FILE
+          git commit -m "Update backend image tag to backend-${{ steps.vars.outputs.sha_short }}" || echo "Nothing to commit"
+          git push origin HEAD:fullstack-fiverr --force
 
