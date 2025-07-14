@@ -40,6 +40,9 @@ jobs:
       - name: Update image tag in values.yaml
         run: |
           yq e '.backend.image.tag = "backend-${{ steps.vars.outputs.sha_short }}"' -i $CHART_PATH/values/$FILE
+      - name: Debug whoami
+        run: git config user.name && git remote -v
+
       - name: Commit and push updated values.yaml
         run: |
           git config user.name "GitHub Actions"
