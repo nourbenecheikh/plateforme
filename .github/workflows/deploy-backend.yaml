@@ -52,7 +52,7 @@ jobs:
 
       - name: Commit and push updated values.yaml
         run: |
-          git add $CHART_PATH/$FILE
+          git add $CHART_PATH/values/$FILE
           git commit -m "Update backend image tag to backend-${{ steps.vars.outputs.sha_short }}"
           git push origin HEAD:fullstack-fiverr
 
