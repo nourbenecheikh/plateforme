@@ -48,7 +48,7 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git remote remove origin
-          git remote add origin https://x-access-token:${{ secrets.CI_PUSH_TOKEN }}@github.com/${{ github.repository }}
+          git remote add origin https://x-access-token:$@github.com/$CI_PUSH_TOKEN{{ github.repository }}
 
           git remote -v
           git add $CHART_PATH/values/$FILE
