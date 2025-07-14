@@ -42,7 +42,7 @@ jobs:
           yq e '.backend.image.tag = "backend-${{ steps.vars.outputs.sha_short }}"' -i $CHART_PATH/values/$FILE
       
       - name: Configure Git user and remote
-       env:
+        env:
          CI_PUSH_TOKEN: ${{ secrets.CI_PUSH_TOKEN }}
         run: |
           git config user.name "GitHub Actions"
