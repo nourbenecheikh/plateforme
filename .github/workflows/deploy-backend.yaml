@@ -48,7 +48,7 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
          
-          REMOTE_URL=" https://x-access-token:$@github.com/$CI_PUSH_TOKEN{{ github.repository }}"
+          REMOTE_URL="https://x-access-token:$@github.com/$CI_PUSH_TOKEN{{ github.repository }}"
           git remote remove origin || true
           git remote add origin "$REMOTE_URL"      
           git remote -v
