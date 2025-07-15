@@ -1,3 +1,2 @@
-echo "dfffffffd ffff hdccccccccc
-ddddddsddsfccfffcccccccccccccccccccccvdddddddddddffcfccccccccccfffffdddello 1"
+echo "hello "
 
