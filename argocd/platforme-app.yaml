@@ -6,15 +6,17 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/nourbenecheikh/plateforme'  # 🔁 À modifier
-    targetRevision: fullstack-fiverr         # 🔁 Branche (main, master…)
-    path: platform-chart                                           # ✅ Chemin vers ton chart
-    helm:
+    repoURL: 'https://github.com/nourbenecheikh/plateforme'  
+    targetRevision: fullstack-fiverr       
+    path: platform-chart                                           
+   helm:
       valueFiles:
-        - values.yaml
+        - values/backend-values.yaml    
+        - values/frontend-values.yaml   
+        - values/mongodb-values.yaml 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: default                                             # 🔁 Namespace cible
+    namespace: default                                             
   syncPolicy:
     automated:
       prune: true
