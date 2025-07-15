@@ -54,5 +54,5 @@ jobs:
           git remote -v
           git add $CHART_PATH/values/$FILE
           git commit -m "Update backend image tag to backend-${{ steps.vars.outputs.sha_short }}" || echo "Nothing to commit"
-          git push origin HEAD:fullstack-fiverr --force
+          git push origin HEAD:fullstack-fiverr
 
