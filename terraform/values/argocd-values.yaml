@@ -1,0 +1,15 @@
+server:
+  service:
+    type: ClusterIP
+config:
+  params:
+    server:
+      insecure: true
+  ingress:
+    enabled: false
+    ingressClassName: nginx
+    hosts:
+      - argocd.dev-nextora.com
+    paths:
+      - /
+    pathType: Prefix
