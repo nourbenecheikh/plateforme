@@ -1,9 +1,0 @@
-enabled: true
-replicaCount: 1
-image:
-  repository: nourben585/frontend-app
-  tag: latest
-  pullPolicy: IfNotPresent
-service:
-  port: 3000
-containerPort: 80

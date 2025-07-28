@@ -1,0 +1,23 @@
+image:
+  backend:
+    repository: nourben585/backend-app
+    tag: latest
+  frontend:
+    repository: nourben585/frontend-app
+    tag: latest
+  mongodb:
+    repository: mongo
+    tag: "6"
+
+replicas:
+  backend: 1
+  frontend: 1
+  mongodb: 1
+
+hpa:
+  backend:
+    minReplicas: 1
+    maxReplicas: 2
+  frontend:
+    minReplicas: 1
+    maxReplicas: 2
