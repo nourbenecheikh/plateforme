@@ -6,10 +6,10 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/nourbenecheikh/plateforme'  
-    targetRevision: fullstack-fiverr       
-    path: platform-chart                                           
-   helm:
+    repoURL: 'https://github.com/nourbenecheikh/plateforme.git'
+    targetRevision: fullstack-fiverr
+    path: platform-chart       
+    helm:
       valueFiles:
         - values/backend-values.yaml    
         - values/frontend-values.yaml   

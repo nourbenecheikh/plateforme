@@ -1,10 +1,10 @@
-{{- if .Values.backend.enabled }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: backend-deployment
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -16,10 +16,10 @@ spec:
       containers:
         - name: backend
           image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
-          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          imagePullPolicy: always
           ports:
-            - containerPort: {{ .Values.backend.containerPort }}
+            - containerPort: 80
           env:
             - name: MONGO_URI
               value: "mongodb://mongodb-service:27017/mydb"
-{{- end }}
+

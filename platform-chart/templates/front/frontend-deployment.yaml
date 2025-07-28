@@ -1,10 +1,10 @@
-{{- if .Values.frontend.enabled }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: frontend-deployment
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
       app: frontend
@@ -16,7 +16,6 @@ spec:
       containers:
         - name: frontend
           image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
-          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          imagePullPolicy: always
           ports:
-            - containerPort: {{ .Values.frontend.containerPort }}
-{{- end }}
+            - containerPort: 80
