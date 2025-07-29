@@ -21,3 +21,10 @@ hpa:
   frontend:
     minReplicas: 1
     maxReplicas: 2
+serviceAccount:
+  create: true
+  name: ""
+  automount: true
+
+ingress:
+  enabled: false
