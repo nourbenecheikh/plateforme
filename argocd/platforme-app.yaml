@@ -11,9 +11,7 @@ spec:
     path: platform-chart       
     helm:
       valueFiles:
-        - values/backend-values.yaml    
-        - values/frontend-values.yaml   
-        - values/mongodb-values.yaml 
+        - values.yaml    
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default                                             
