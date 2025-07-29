@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          image: "{{ .Values.image.backend.repository }}:{{ .Values.image.backend.tag }}"
           imagePullPolicy: always
           ports:
             - containerPort: 80
