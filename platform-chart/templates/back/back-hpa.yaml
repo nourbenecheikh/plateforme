@@ -7,8 +7,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: backend-deployment
-  minReplicas: {{ .Values.hpa.Back.minReplicas }}
-  maxReplicas: {{ .Values.hpa.Back.maxReplicas }}
+  minReplicas: {{ .Values.hpa.backend.minReplicas }}
+  maxReplicas: {{ .Values.hpa.backend.maxReplicas }}
   metrics:
   - type: Resource
     resource:
