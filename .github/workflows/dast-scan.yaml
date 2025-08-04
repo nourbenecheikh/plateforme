@@ -2,7 +2,9 @@ name: ZAP DAST Scan
 
 on:
   workflow_dispatch:
-
+  push:
+    branches:
+      - Dast-scan
 jobs:
   zap_scan:
     runs-on: ubuntu-latest

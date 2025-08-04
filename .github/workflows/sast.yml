@@ -3,10 +3,7 @@ name: SAST Scan with Semgrep
 on:
   push:
     branches:
-      - fullstack-fiverr
-  pull_request:
-    branches:
-      - fullstack-fiverr
+      -  sast-scan 
 
 jobs:
   sast:
