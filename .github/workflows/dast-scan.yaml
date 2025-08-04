@@ -7,9 +7,6 @@ on:
     branches:
       - Dast-scan
 
-permissions:  # 👈 AJOUTER CECI
-  contents: Read
-  pull-requests: write
 
 jobs:
   zap_scan:
