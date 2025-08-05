@@ -23,7 +23,7 @@ jobs:
         run: |
           mkdir zap-reports
           docker run --rm \
-            -v ${{ github.workspace }}/zap-reports:/zap/wrk/:rw \
+            -v ${{ github.workspace }}/zap-reports/results:/zap/wrk/:rw \
             ghcr.io/zaproxy/zaproxy zap-baseline.py \
             -t https://e9d0e882c4c7.ngrok-free.app \
             -J zap_report.json \
