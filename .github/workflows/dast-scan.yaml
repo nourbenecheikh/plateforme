@@ -15,15 +15,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run ZAP Scan for Localhost
-        run: |
-          mkdir -p zap-reports/results
+        run: | 
           docker run --rm \
-            -v ${{ github.workspace }}/zap-reports/results:/zap/wrk/results:rw \
-            -p 8080:8080 \
+            -v ${{ github.workspace }}:/zap/wrk:rw \
             ghcr.io/zaproxy/zaproxy zap-baseline.py \
             -t http://localhost:3000 \
-            -J results/zap_report.json \
-            
+            -J /zap/wrk/zap_report.json            
 
       - name: Display ZAP Scan Markdown Report
         run: |
