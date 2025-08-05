@@ -28,4 +28,4 @@ jobs:
         run: |
           echo "📋 ZAP Scan Markdown Report:"
           echo "-----------------------------------------"
-          cat zap-reports/results/zap_report.json
+          cat dast-rapport/zap_report.json
