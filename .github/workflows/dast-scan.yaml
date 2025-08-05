@@ -27,11 +27,9 @@ jobs:
             ghcr.io/zaproxy/zaproxy zap-baseline.py \
             -t https://e9d0e882c4c7.ngrok-free.app \
             -J zap_report.json \
-            -w zap_report.md \
-            -r zap_report.html
 
-      - name: Upload ZAP Reports
-        uses: actions/upload-artifact@2.327.1
-        with:
-          name: zap-reports
-          path: zap-reports/
+      - name: Display ZAP Scan Markdown Report
+        run: |
+          echo "📋 ZAP Scan Markdown Report:"
+          echo "-----------------------------------------"
+          cat zap-reports/zap_report.json
