@@ -6,11 +6,6 @@ on:
     branches:
       - Dast-scan
 
-permissions:
-  contents: read
-  issues: write
-  pull-requests: write
-
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
@@ -19,17 +14,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run ZAP Scan in Docker
+      - name: Run ZAP Scan for Localhost
         run: |
-          mkdir zap-reports
+          mkdir -p zap-reports/results
           docker run --rm \
-            -v ${{ github.workspace }}/zap-reports/results:/zap/wrk/:rw \
+            -v ${{ github.workspace }}/zap-reports/results:/zap/wrk/results:rw \
+            -p 8080:8080 \
             ghcr.io/zaproxy/zaproxy zap-baseline.py \
-            -t https://e9d0e882c4c7.ngrok-free.app \
-            -J zap_report.json \
+            -t http://localhost:3000 \
+            -J results/zap_report.json \
+            
 
       - name: Display ZAP Scan Markdown Report
         run: |
           echo "📋 ZAP Scan Markdown Report:"
           echo "-----------------------------------------"
-          cat zap-reports/zap_report.json
+          cat zap-reports/results/zap_report.json
