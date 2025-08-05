@@ -24,7 +24,7 @@ jobs:
             -t http://localhost:3000 \
             -J zap_report.json
 
-        - name: Display ZAP Scan Markdown Report
+      - name: Display ZAP Scan Markdown Report
         run: |
           echo "📋 ZAP Scan Markdown Report:"
           echo "-----------------------------------------"
