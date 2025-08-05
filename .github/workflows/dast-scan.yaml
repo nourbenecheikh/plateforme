@@ -17,12 +17,14 @@ jobs:
       - name: Run ZAP Scan for Localhost
         run: | 
           docker run --rm \
-            -v ${{ github.workspace }}:/zap/wrk:rw \
-            ghcr.io/zaproxy/zaproxy zap-baseline.py \
+            -v $(pwd)/zap-reports:/zap/wrk:rw \
+            --network="host" \
+            ghcr.io/zaproxy/zaproxy \
+            zap-baseline.py \
             -t http://localhost:3000 \
-            -J /zap/wrk/zap_report.json            
+            -J zap_report.json
 
-      - name: Display ZAP Scan Markdown Report
+        - name: Display ZAP Scan Markdown Report
         run: |
           echo "📋 ZAP Scan Markdown Report:"
           echo "-----------------------------------------"
