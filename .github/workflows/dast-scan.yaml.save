@@ -31,7 +31,7 @@ jobs:
             -r zap_report.html
 
       - name: Upload ZAP Reports
-        uses: actions/upload-artifact@2.327.1
+        uses: actions/upload-artifact@latest
         with:
           name: zap-reports
           path: zap-reports/
