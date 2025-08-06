@@ -1,5 +1,5 @@
 # Étape 1 : Construire l'application avec Node.js
-FROM node:16 AS build
+FROM node:18 AS build
 
 # Dossier de travail
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Installer les dépendances
-RUN npm install --force
+RUN npm install --legacy-peer-deps
 
 
 # Copier tout le projet
