@@ -21,7 +21,7 @@ jobs:
             --network="host" \
             ghcr.io/zaproxy/zaproxy \
             zap-baseline.py \
-            -t https://e8fba19d286c.ngrok-free.app \
+            -t https://5b7515caeb6f.ngrok-free.app \
             -J zap_report.json
 
       - name: Display ZAP Scan Markdown Report
