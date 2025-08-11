@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run ZAP Scan for Localhost
+      - name: Run ZAP Scan for localhost
         run: | 
           docker run --rm \
             -v $(pwd)/dast-rapport:/zap/wrk:rw \
