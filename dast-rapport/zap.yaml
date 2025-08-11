@@ -3,7 +3,7 @@ env:
   - excludePaths: []
     name: baseline
     urls:
-    - https://3ef9b786dd01.ngrok-free.app
+    - https://e8fba19d286c.ngrok-free.app
   parameters:
     failOnError: true
     progressToStdout: false
@@ -14,7 +14,7 @@ jobs:
   type: passiveScan-config
 - parameters:
     maxDuration: 1
-    url: https://3ef9b786dd01.ngrok-free.app
+    url: https://e8fba19d286c.ngrok-free.app
   type: spider
 - parameters:
     maxDuration: 0
@@ -24,13 +24,6 @@ jobs:
     summaryFile: /home/zap/zap_out.json
   rules: []
   type: outputSummary
-- parameters:
-    reportDescription: ''
-    reportDir: /zap/wrk/
-    reportFile: zap_report.html
-    reportTitle: ZAP Scanning Report
-    template: traditional-html
-  type: report
 - parameters:
     reportDescription: ''
     reportDir: /zap/wrk/
