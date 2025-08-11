@@ -39,4 +39,6 @@ volumes:
   mongo-data:
 
 
+networks:
+  webnet:
  
