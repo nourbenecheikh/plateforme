@@ -72,6 +72,6 @@ app.use("/api/reviews", reviewRoute);
     // Tentative de reconnexion après 5 secondes
     setTimeout(connect, 5000);
   }
-};
+
 
 connect();
