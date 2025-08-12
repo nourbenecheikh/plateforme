@@ -21,7 +21,7 @@ mongoose.set("strictQuery", true);
 
 
 // Middlewares
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: 'http://localhost', credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -34,7 +34,6 @@ app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
 
-const connect = async () => {
   try {
     if (!mongoUri) {
       throw new Error("MONGO_URI is not defined in environment variables");
