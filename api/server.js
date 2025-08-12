@@ -21,12 +21,24 @@ mongoose.set("strictQuery", true);
 
 
 // Middlewares
-app.use(cors({ origin: 'http://localhost:80', credentials: true }));
+app.use(cors({ origin: [
+    'http://localhost',      
+    'http://localhost:80',   
+    'http://localhost:3000',
+    'http://localhost:5173'  
+  ], credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
+});
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.sendStatus(200);
 });
 // Routes API
 app.use("/api/auth", authRoute);
