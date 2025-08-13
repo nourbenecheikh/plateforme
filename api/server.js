@@ -12,7 +12,6 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 //import React, { useEffect, useState } from 'react';
 
-dotenv.config();
 
 const mongoUri = process.env.MONGO_URI;  
 const app = express();
