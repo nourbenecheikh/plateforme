@@ -12,9 +12,9 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 //import React, { useEffect, useState } from 'react';
 
+dotenv.config();
 
-
-const mongoUri = process.env.MONGO_URI;  //
+const mongoUri = process.env.MONGO_URI;  
 const app = express();
 
 mongoose.set("strictQuery", true);
@@ -48,7 +48,7 @@ app.use("/api/orders", orderRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
-
+const connect = async () => {
   try {
     if (!mongoUri) {
       throw new Error("MONGO_URI is not defined in environment variables");
@@ -73,5 +73,4 @@ app.use("/api/reviews", reviewRoute);
     setTimeout(connect, 5000);
   }
 
-
-connect();
+};
