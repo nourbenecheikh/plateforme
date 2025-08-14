@@ -72,4 +72,6 @@ const connect = async () => {
     setTimeout(connect, 5000);
   }
 
-};
+
+}; 
+connect(); 
